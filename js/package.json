@@ -1,0 +1,11 @@
+{
+    "name": "ScrumPoker",
+    "version": "0.0.1",
+    "description": "Realtime Scrum Poker",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest"
+    },
+    "author": "Peter Bracken"
+}
