@@ -5,7 +5,7 @@ var votes = {};
 /**
  * Given an object where each property is a user name, refresh the list of online users
  */
-function refreshUserList() {
+var refreshUserList = function() {
 	
 	var userListStr = '', user;
 	
@@ -15,7 +15,12 @@ function refreshUserList() {
 		
 	}
     $("#loggedInUsers").html(userListStr);
-}
+};
+
+var clearUserVotes = function() {
+	votes = {};
+	refreshUserList();
+};
 
 /**
  * When a user logs in
@@ -56,7 +61,14 @@ $(function() {
 	refreshUserList();
 	
 	$('#reset').click(function() {
-		console.log('Reset');
 		socket.emit('reset');
-	})
+		clearUserVotes();
+	});
+	
+	$('#begin').click(function() {
+		socket.emit('begin');
+		clearUserVotes();
+	});
+	
+	
 });

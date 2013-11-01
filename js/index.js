@@ -80,8 +80,17 @@ io.sockets.on('connection', function(socket) {
     socket.on('reset', function() {
     	
     	socket.broadcast.emit('reset');
+    	
     });
     
+    /*
+     * Begin Event
+     */
+    socket.on('begin', function() {
+    	
+    	socket.broadcast.emit('begin');
+    	
+    });
     socket.on('disconnect', function() {
     	
     	socket.get('login', function(error, name) {

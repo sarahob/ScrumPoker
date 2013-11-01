@@ -47,9 +47,12 @@ socket.on('logout', function(data) {
 	}
 });
 
-socket.on('reset', function() {
+var enableVote = function() {
 	$('#submit').attr("disabled", false);
-});
+};
+
+socket.on('reset', enableVote);
+socket.on('begin', enableVote);
 
 $(function() {
     $("#chatControls").hide();
