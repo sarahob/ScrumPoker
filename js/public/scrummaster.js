@@ -1,5 +1,6 @@
 var socket = io.connect();
 var votes = {};
+var hideVotes = true;
 
 
 /**
@@ -11,7 +12,7 @@ var refreshUserList = function() {
 	
 	for (var i = 0; i < loggedInUsers.length; i++) {
 		user = loggedInUsers[i];
-		userListStr += '<div class="user"><p>' + user + (votes[user] ? ' (' + votes[user] + ') ' : '') + '</p></div>';
+		userListStr += '<div class="user"><p>' + user + (votes[user] ? ' (' + (hideVotes ? 'X' : votes[user]) + ') ' : '') + '</p></div>';
 		
 	}
     $("#loggedInUsers").html(userListStr);
@@ -19,6 +20,7 @@ var refreshUserList = function() {
 
 var clearUserVotes = function() {
 	votes = {};
+	hideVotes = true;
 	refreshUserList();
 };
 
@@ -68,7 +70,11 @@ $(function() {
 	$('#begin').click(function() {
 		socket.emit('begin');
 		clearUserVotes();
+		$('#begin').hide();
 	});
 	
-	
+	$('#reveal').click(function() {
+		hideVotes = false;
+		refreshUserList();
+	});
 });
