@@ -1,14 +1,18 @@
 var socket = io.connect();
+var votes = {};
+
 
 /**
  * Given an object where each property is a user name, refresh the list of online users
  */
 function refreshUserList() {
 	
-	var userListStr = '';
+	var userListStr = '', user;
 	
 	for (var i = 0; i < loggedInUsers.length; i++) {
-		userListStr += '<div class="user"><p>' + loggedInUsers[i] + '</p></div>';
+		user = loggedInUsers[i];
+		userListStr += '<div class="user"><p>' + user + (votes[user] ? ' (' + votes[user] + ') ' : '') + '</p></div>';
+		
 	}
     $("#loggedInUsers").html(userListStr);
 }
@@ -17,7 +21,7 @@ function refreshUserList() {
  * When a user logs in
  */
 socket.on('login', function(data) {
-	loggedInUsers[data] = 1;
+	loggedInUsers.push(data);
 	
 	refreshUserList();
 });
@@ -36,10 +40,23 @@ socket.on('logout', function(data) {
 	refreshUserList();
 });
 
+socket.on('message', function(data) {
+    var user = data['login'],
+    	message = data['message'];
+    
+    votes[user] = message;    
+    
+    refreshUserList();
+});
 
 /**
  * Page Load
  */
 $(function() {
 	refreshUserList();
+	
+	$('#reset').click(function() {
+		console.log('Reset');
+		socket.emit('reset');
+	})
 });

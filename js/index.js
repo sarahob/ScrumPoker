@@ -22,7 +22,7 @@ app.configure(function() {
 
 
 app.get('/', function(req, res) {
-    res.render('home.jade');
+    res.render('home.jade',  { users: JSON.stringify(allClients)});
 });
 
 app.get('/scrummaster', function(req, res) {
@@ -72,6 +72,14 @@ io.sockets.on('connection', function(socket) {
 
             console.log("user " + name + " send this : " + message);
         })
+    });
+    
+    /*
+     * Reset Event
+     */
+    socket.on('reset', function() {
+    	
+    	socket.broadcast.emit('reset');
     });
     
     socket.on('disconnect', function() {
