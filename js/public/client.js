@@ -1,24 +1,26 @@
 var socket = io.connect();
 
-function addMessage(msg, pseudo) {
-    $("#chatEntries").html('<div class="message"><p>' + pseudo + ' : ' + msg + '</p></div>');
-}
+var votingOptions = [1,2, 3, 5, 8, 13, 20];
 
-function sendMessage() {
+
+var addMessage = function() {
+    $("#voteSent").html('Your vote has been cast');
+};
+
+var sendMessage= function() {
     if ($('#messageInput').val() != "") {
         socket.emit('message', $('#messageInput').val());
-        addMessage($('#messageInput').val(), "Me", new Date().toISOString(), true);
+        addMessage();
         $('#messageInput').val('');
         $('#submit').attr("disabled", true);
     }
-}
+};
 
-function setPseudo() {
+var setPseudo = function() {
 	var pseudoName = $("#pseudoInput").val();
     if (pseudoName != "") {
     	if (loggedInUsers.indexOf(pseudoName) === -1) {
     		socket.emit('login', $("#pseudoInput").val());
-            $('#chatControls').show();
             $('#pseudoInput').hide();
             $('#pseudoSet').hide(); 
             $('#errorMessage').hide();
@@ -26,7 +28,20 @@ function setPseudo() {
     		$('#errorMessage').html('That name is already taken, try again');
     	}
     }
-}
+};
+
+var renderVotingOptions = function() {
+	
+	$('#votingOptions').html('');
+	for (var i = 0; i < votingOptions.length; i++) {
+		$('#votingOptions').append('<div id=vote' +  votingOptions[i] + ' onclick="vote(this)">' + votingOptions[i] + '</div>');
+	}
+};
+
+var vote = function(voteEl) {
+	var value = voteEl.innerHTML;
+	socket.emit('message', value);
+};
 
 /**
  * When a user logs in
@@ -48,6 +63,7 @@ socket.on('logout', function(data) {
 });
 
 var enableVote = function() {
+	renderVotingOptions();
 	$('#submit').attr("disabled", false);
 };
 
@@ -55,7 +71,6 @@ socket.on('reset', enableVote);
 socket.on('begin', enableVote);
 
 $(function() {
-    $("#chatControls").hide();
     $("#pseudoSet").click(function() {
         setPseudo();
     });

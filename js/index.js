@@ -22,6 +22,7 @@ app.configure(function() {
 
 
 app.get('/', function(req, res) {
+	console.log(JSON.stringify(allClients));
     res.render('home.jade',  { users: JSON.stringify(allClients)});
 });
 
@@ -69,8 +70,6 @@ io.sockets.on('connection', function(socket) {
                 login: name
             };
             socket.broadcast.emit('message', data);
-
-            console.log("user " + name + " send this : " + message);
         })
     });
     
@@ -98,7 +97,6 @@ io.sockets.on('connection', function(socket) {
     			throw new Error('Error Logging out');
     		}
     		else {
-    			console.log('Logout: ' + name);
         		socket.broadcast.emit('logout', name);	
         		
         		// remove the user from the list of clients
@@ -108,9 +106,6 @@ io.sockets.on('connection', function(socket) {
         		}
     		}
     	});
-    	
-    	
-    	delete allClients[socket];
     })
 });
 
