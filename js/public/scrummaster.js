@@ -1,6 +1,7 @@
 var socket = io.connect();
 var votes = {};
 var hideVotes = true;
+var allVotesIn = true;
 
 /**
  * Given an object where each property is a user name, refresh the list of online users
@@ -22,6 +23,7 @@ var refreshUserList = function() {
  */
 var clearUserVotes = function() {
 	votes = {};
+	allVotesIn = false;
 	hideVotes = true;
 	refreshUserList();
 };
@@ -76,6 +78,7 @@ socket.on('vote', function(data) {
     	}
     }
     if (voteComplete) {
+    	allVotesIn = true;
     	$('#reveal').show();	
     }
 });
@@ -94,7 +97,10 @@ $(function() {
 	});
 	
 	$('#reveal').click(function() {
-		hideVotes = false;
-		refreshUserList();
+		if (allVotesIn) {
+			hideVotes = false;
+			refreshUserList();	
+		}
+		allVotesIn = true;  // clicking a second time will force reveal...
 	});
 });
