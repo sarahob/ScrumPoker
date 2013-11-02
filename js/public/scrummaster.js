@@ -49,11 +49,23 @@ socket.on('logout', function(data) {
 
 socket.on('vote', function(data) {
     var user = data['login'],
-    	vote = data['vote'];
+    	vote = data['vote'],
+    	voteComplete = true;
     
     votes[user] = vote;    
     
     refreshUserList();
+    
+    // if all votes are in, enable the reveal button
+    for (var i = 0; i < loggedInUsers.length; i++) {
+    	if (!votes[loggedInUsers[i]]) {
+    		voteComplete = false;
+    		break;
+    	}
+    }
+    if (voteComplete) {
+    	$('#reveal').show();	
+    }
 });
 
 /**
@@ -65,12 +77,7 @@ $(function() {
 	$('#reset').click(function() {
 		socket.emit('reset');
 		clearUserVotes();
-	});
-	
-	$('#begin').click(function() {
-		socket.emit('begin');
-		clearUserVotes();
-		$('#begin').hide();
+		$('#reset').html('Reset');
 	});
 	
 	$('#reveal').click(function() {
