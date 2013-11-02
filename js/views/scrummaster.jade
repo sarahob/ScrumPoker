@@ -2,6 +2,12 @@ doctype 5
 html
    head
       title Scrum Master
+      meta(name='viewport',content='width=device-width, initial-scale=1.0')
+      link(href='bootstrap/css/bootstrap.css',rel='stylesheet',media='screen')
+      link(href='bootstrap/css/bootstrap-theme.css',rel='stylesheet',media='screen')
+      link(href='bootstrap/css/signin.css',rel='stylesheet',media='screen')
+      link(href='css/scrummaster.css',rel='stylesheet',media='screen')
+      link(href='css/cards.css',rel='stylesheet',media='screen')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src="/socket.io/socket.io.js")    
       |<script type="text/javascript">
@@ -9,13 +15,13 @@ html
       |</script>  
       script(src="scrummaster.js")
    body
-      div.container
+      div.container.scrummaster
          header
-            h1 ScrumMaster
+            h1 Scrum Master
+            
          div#loggedInUsers
-         div#newVote Vote on 
-           input(type='text')#newVoteName
-           button#createNewVote Start New Vote
-         div#reset Reset
-         div#reveal Reveal
+
+         p
+           button#reset.btn.btn-default Reset
+           button#reveal.btn.btn-default Reveal
          

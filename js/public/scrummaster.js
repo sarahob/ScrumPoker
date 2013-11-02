@@ -11,9 +11,9 @@ var refreshUserList = function() {
 	
 	for (var i = 0; i < loggedInUsers.length; i++) {
 		user = loggedInUsers[i];
-		userListStr += '<div class="user"><p>' + user + (votes[user] ? ' (' + (hideVotes ? 'X' : votes[user]) + ') ' : '') + '</p></div>';
-		
+		userListStr += '<div class="card"><p>' + user + (votes[user] ? ' (' + (hideVotes ? 'X' : votes[user]) + ') ' : '') + '</p></div>';
 	}
+	userListStr += '<div class="after-card"></div>';
     $("#loggedInUsers").html(userListStr);
 };
 

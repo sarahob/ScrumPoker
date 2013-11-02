@@ -1,6 +1,6 @@
-var socket = io.connect();
-
-var votingOptions = [1,2, 3, 5, 8, 13, 20];
+var socket = io.connect(),
+    votingOptions = [1,2, 3, 5, 8, 13, 20], 
+    loggedIn = false;
 
 /**
  * When the user sets their login name.
@@ -15,6 +15,7 @@ var setPseudo = function() {
             $('#errorMessage').hide();
             $('#statusMessage').show();
             $('#loginControls').hide();
+            loggedIn = true;
     	} else {
     		$('#errorMessage').html('That name is already taken, try again');
     	}
@@ -47,10 +48,12 @@ var vote = function(value) {
  * Enable voting options
  */
 var enableVote = function() {
-	renderVotingOptions();
-	$('#statusMessage').hide();
-	$('#voteSent').hide();
-	$('#votingOptions').show();
+	if (loggedIn) {
+		renderVotingOptions();
+		$('#statusMessage').hide();
+		$('#voteSent').hide();
+		$('#votingOptions').show();	
+	}
 };
 
 /**

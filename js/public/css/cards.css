@@ -16,3 +16,7 @@
 .card:hover {
 	background-color:#999;
 }
+
+.after-card {
+  clear: left;
+}
