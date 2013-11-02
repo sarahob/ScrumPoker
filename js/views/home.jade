@@ -2,6 +2,10 @@ doctype 5
 html
    head
       title Scrum Poker
+      meta(name='viewport',content='width=device-width, initial-scale=1.0')
+      link(href='bootstrap/css/bootstrap.css',rel='stylesheet',media='screen')
+      link(href='bootstrap/css/signin.css',rel='stylesheet',media='screen')
+      link(href='css/cards.css',rel='stylesheet',media='screen')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src="/socket.io/socket.io.js")
       |<script type="text/javascript">
@@ -12,10 +16,13 @@ html
       div.container
          header
             h1 Scrum Poker App
-         div#loginControls
-           input(type='text')#pseudoInput
-           button#pseudoSet Login
+         div#loginControls.container
+           form.form-signin
+             h2.form-signin-heading Please Sign In
+             input(type='text',placeholder='Username',required,autofocus)#pseudoInput.form-control
+             button#pseudoSet.btn.btn-lg.btn-primary.btn-block Login
          div#errorMessage
          div#statusMessage Waiting for voting to open...
          div#votingOptions
          div#voteSent
+  script(src='bootstrap/js/bootstrap.min.js')

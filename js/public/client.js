@@ -28,7 +28,7 @@ var renderVotingOptions = function() {
 	
 	$('#votingOptions').html('');
 	for (var i = 0; i < votingOptions.length; i++) {
-		$('#votingOptions').append('<div id=vote' +  votingOptions[i] + ' onclick="vote(' + votingOptions[i] + ')">' + votingOptions[i] + '</div>');
+		$('#votingOptions').append('<div class=card id=vote' +  votingOptions[i] + ' onclick="vote(' + votingOptions[i] + ')">' + votingOptions[i] + '</div>');
 	}
 };
 
@@ -78,6 +78,10 @@ socket.on('begin', enableVote);
 $(function() {
     $("#pseudoSet").click(function() {
         setPseudo();
+        return false;
+    });
+    $('#newVoteButton').click(function() {
+    	
     });
     $('#statusMessage').hide();
 });
