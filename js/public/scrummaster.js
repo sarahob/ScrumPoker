@@ -2,7 +2,6 @@ var socket = io.connect();
 var votes = {};
 var hideVotes = true;
 
-
 /**
  * Given an object where each property is a user name, refresh the list of online users
  */
@@ -18,6 +17,9 @@ var refreshUserList = function() {
     $("#loggedInUsers").html(userListStr);
 };
 
+/**
+ * Clear the votes, set hideVotes to true and refresh the list of users
+ */
 var clearUserVotes = function() {
 	votes = {};
 	hideVotes = true;
@@ -26,6 +28,8 @@ var clearUserVotes = function() {
 
 /**
  * When a user logs in
+ * Add the username to the list of users
+ * Refresh the list of users
  */
 socket.on('login', function(data) {
 	loggedInUsers.push(data);
@@ -35,6 +39,8 @@ socket.on('login', function(data) {
 
 /**
  * When a user logs out
+ * Remove their name from the list of users
+ * Refresh the list of users
  */
 socket.on('logout', function(data) {
 	
@@ -47,6 +53,12 @@ socket.on('logout', function(data) {
 	refreshUserList();
 });
 
+/**
+ * When a vote is cast
+ * Register the vote for the user
+ * Refresh the list of users.
+ * Check if the voting is complete.
+ */
 socket.on('vote', function(data) {
     var user = data['login'],
     	vote = data['vote'],
@@ -70,6 +82,7 @@ socket.on('vote', function(data) {
 
 /**
  * Page Load
+ * Setup click events etc.
  */
 $(function() {
 	refreshUserList();

@@ -2,7 +2,9 @@ var socket = io.connect();
 
 var votingOptions = [1,2, 3, 5, 8, 13, 20];
 
-
+/**
+ * When the user sets their login name.
+ */
 var setPseudo = function() {
 	var pseudoName = $("#pseudoInput").val();
     if (pseudoName != "") {
@@ -19,6 +21,9 @@ var setPseudo = function() {
     }
 };
 
+/**
+ * Render the voting options
+ */
 var renderVotingOptions = function() {
 	
 	$('#votingOptions').html('');
@@ -27,29 +32,36 @@ var renderVotingOptions = function() {
 	}
 };
 
+/**
+ * Cast a vote
+ * Display the 'Vote Cast' message
+ * Hide the voting options
+ */
 var vote = function(value) {
 	socket.emit('vote', value);
 	$('#voteSent').html('Your vote has been cast').show();
 	$('#votingOptions').hide();
 };
 
+/**
+ * Enable voting options
+ */
 var enableVote = function() {
 	renderVotingOptions();
 	$('#statusMessage').hide();
 	$('#voteSent').hide();
 	$('#votingOptions').show();
-	$('#submit').attr("disabled", false);
 };
 
 /**
- * When a user logs in
+ * When a user logs in, add their name to the list of loggedInUsers
  */
 socket.on('login', function(data) {
 	loggedInUsers.push(data);
 });
 
 /**
- * When a user logs out
+ * When a user logs out, remove their name from the list of loggedInUsers
  */
 socket.on('logout', function(data) {
 	
