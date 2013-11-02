@@ -3,19 +3,6 @@ var socket = io.connect();
 var votingOptions = [1,2, 3, 5, 8, 13, 20];
 
 
-var addMessage = function() {
-    $("#voteSent").html('Your vote has been cast');
-};
-
-var sendMessage= function() {
-    if ($('#messageInput').val() != "") {
-        socket.emit('message', $('#messageInput').val());
-        addMessage();
-        $('#messageInput').val('');
-        $('#submit').attr("disabled", true);
-    }
-};
-
 var setPseudo = function() {
 	var pseudoName = $("#pseudoInput").val();
     if (pseudoName != "") {
@@ -24,6 +11,8 @@ var setPseudo = function() {
             $('#pseudoInput').hide();
             $('#pseudoSet').hide(); 
             $('#errorMessage').hide();
+            $('#statusMessage').show();
+            $('#loginControls').hide();
     	} else {
     		$('#errorMessage').html('That name is already taken, try again');
     	}
@@ -34,13 +23,22 @@ var renderVotingOptions = function() {
 	
 	$('#votingOptions').html('');
 	for (var i = 0; i < votingOptions.length; i++) {
-		$('#votingOptions').append('<div id=vote' +  votingOptions[i] + ' onclick="vote(this)">' + votingOptions[i] + '</div>');
+		$('#votingOptions').append('<div id=vote' +  votingOptions[i] + ' onclick="vote(' + votingOptions[i] + ')">' + votingOptions[i] + '</div>');
 	}
 };
 
-var vote = function(voteEl) {
-	var value = voteEl.innerHTML;
-	socket.emit('message', value);
+var vote = function(value) {
+	socket.emit('vote', value);
+	$('#voteSent').html('Your vote has been cast').show();
+	$('#votingOptions').hide();
+};
+
+var enableVote = function() {
+	renderVotingOptions();
+	$('#statusMessage').hide();
+	$('#voteSent').hide();
+	$('#votingOptions').show();
+	$('#submit').attr("disabled", false);
 };
 
 /**
@@ -62,11 +60,6 @@ socket.on('logout', function(data) {
 	}
 });
 
-var enableVote = function() {
-	renderVotingOptions();
-	$('#submit').attr("disabled", false);
-};
-
 socket.on('reset', enableVote);
 socket.on('begin', enableVote);
 
@@ -74,7 +67,5 @@ $(function() {
     $("#pseudoSet").click(function() {
         setPseudo();
     });
-    $("#submit").click(function() {
-        sendMessage();
-    });
+    $('#statusMessage').hide();
 });

@@ -47,11 +47,11 @@ socket.on('logout', function(data) {
 	refreshUserList();
 });
 
-socket.on('message', function(data) {
+socket.on('vote', function(data) {
     var user = data['login'],
-    	message = data['message'];
+    	vote = data['vote'];
     
-    votes[user] = message;    
+    votes[user] = vote;    
     
     refreshUserList();
 });

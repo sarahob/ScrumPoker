@@ -48,7 +48,6 @@ io.sockets.on('connection', function(socket) {
     	socket.set('login', data, function() {
         	
             // let scrum master know that user has logged in.
-        	// TODO: Use a scrummaster socket instead of broadcast
             socket.broadcast.emit('login', data);
             
             // add this client to the list of users
@@ -59,17 +58,17 @@ io.sockets.on('connection', function(socket) {
     });
 
     /*
-     * Message Event
+     * Vote Event
      */
-    socket.on('message', function(message) {
-    	console.log('Message: ' + message);
+    socket.on('vote', function(vote) {
+    	
         socket.get('login', function(error, name) {
 
             var data = {
-                message: message,
+                vote: vote,
                 login: name
             };
-            socket.broadcast.emit('message', data);
+            socket.broadcast.emit('vote', data);
         })
     });
     

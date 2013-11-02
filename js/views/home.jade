@@ -1,7 +1,7 @@
 doctype 5
 html
    head
-      title Chat
+      title Scrum Poker
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
       script(src="/socket.io/socket.io.js")
       |<script type="text/javascript">
@@ -12,8 +12,10 @@ html
       div.container
          header
             h1 Scrum Poker App
-         input(type='text')#pseudoInput
-         button#pseudoSet Login
+         div#loginControls
+           input(type='text')#pseudoInput
+           button#pseudoSet Login
          div#errorMessage
+         div#statusMessage Waiting for voting to open...
          div#votingOptions
          div#voteSent
