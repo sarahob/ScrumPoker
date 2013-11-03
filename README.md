@@ -1,7 +1,8 @@
 ScrumPoker
 ==========
 
-Node.js app for distributed Scrum Poker sessions. 
+Node.js app for distributed Scrum Poker sessions. Scrum Master can reset the voting at which point team members can cast their votes.
+Votes remain hidden until the scrum master reveals the results.
 
 Setup
 -----
