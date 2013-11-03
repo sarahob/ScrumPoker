@@ -1,3 +1,4 @@
+require('cf-autoconfig')
 var express = require('express'), 
 	app = express(),
     jade = require('jade'),

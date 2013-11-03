@@ -2,6 +2,7 @@
  * Socket Events
  */
 var socketEvents = function() {
+	
 	var allClients = [];
 	
 	/**
@@ -57,6 +58,7 @@ var socketEvents = function() {
 		                login: name
 		            };
 		            socket.broadcast.emit('vote', data);
+		            
 		        })
 		    },
 		    
@@ -73,8 +75,8 @@ var socketEvents = function() {
 		     * Disconnect
 		     */
 		    'disconnect': function() {
-		    	
 		    	socket.get('login', function(error, name) {
+		    		
 		    		if (error) { 
 		    			throw new Error('Error Logging out');
 		    		}
@@ -87,6 +89,7 @@ var socketEvents = function() {
 		        			allClients.splice(index, 1);
 		        		}
 		    		}
+		    		
 		    	});
 		    }
 		};
