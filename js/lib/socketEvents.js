@@ -8,6 +8,10 @@ var socketEvents = function() {
 	 * Function for mapping object properties to functions. 
 	 * This is used for routing paths to functions for the Express server,
 	 * and also for the mapping socket events to functions.
+	 * 
+	 * @param routes - This is an string->function map.
+	 * @param setupFn - This function will be called and passed the above 'string' and 'function' as params.
+	 * @param scope -The scope for the setupFn call.
 	 */
 	var routeEvents = function(routes, setupFn, scope) {
 		
@@ -59,9 +63,9 @@ var socketEvents = function() {
 		    /**
 		     * Reset
 		     */
-		    'reset': function() {
+		    'beginVote': function(voteSubject) {
 		    	
-		    	socket.broadcast.emit('reset');
+		    	socket.broadcast.emit('beginVote', voteSubject);
 		    	
 		    },
 		    

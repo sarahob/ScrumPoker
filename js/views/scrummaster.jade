@@ -9,7 +9,8 @@ html
       link(href='css/scrummaster.css',rel='stylesheet',media='screen')
       link(href='css/cards.css',rel='stylesheet',media='screen')
       script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-      script(src="/socket.io/socket.io.js")    
+      script(src="/socket.io/socket.io.js") 
+      script(src="bootstrap/js/bootstrap.js")   
       |<script type="text/javascript">
       |var loggedInUsers = !{users} || {};
       |</script>  
@@ -22,6 +23,18 @@ html
          div#loggedInUsers
 
          p
-           button#reset.btn.btn-default Reset
+           button(data-toggle="modal",data-target="#newVoteModal")#newVoteBtn.btn.btn-default New Vote
            button#reveal.btn.btn-default Reveal
+           
+         div(role="dialog",aria-hidden="true")#newVoteModal.modal.fade
+           div.modal-dialog
+             div.modal-content
+               div.modal-header
+                 button(type="button",data-dismiss="modal",aria-hidden="true").close &times;
+                 h4.modal-title New Vote
+               div.modal-body
+                  input(type='text',placeholder='Backlog Number',required,autofocus)#backlogNumber.form-control
+               div.modal-footer
+                 button(type="button",data-dismiss="modal").btn.btn-default Close
+                 button(type="button")#beginVote.btn.btn-primary Begin Vote
          

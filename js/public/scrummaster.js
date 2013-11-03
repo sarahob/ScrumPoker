@@ -100,10 +100,14 @@ socket.on('vote', function(data) {
 $(function() {
 	refreshUserList();
 	
-	$('#reset').click(function() {
-		socket.emit('reset');
-		clearUserVotes();
-		$('#reset').html('Reset');
+	$('#beginVote').click(function() {
+		var voteSubject = $('#backlogNumber').val();
+		if (voteSubject) {
+			socket.emit('beginVote', voteSubject);
+			$('#newVoteModal').modal('hide')
+			clearUserVotes();
+			$('#backlogNumber').val('');
+		}
 	});
 	
 	$('#reveal').click(function() {

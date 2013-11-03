@@ -48,10 +48,10 @@ var vote = function(value) {
 /**
  * Enable voting options
  */
-var enableVote = function() {
+var enableVote = function(voteSubject) {
 	if (loggedIn) {
 		renderVotingOptions();
-		$('#statusMessage').hide();
+		$('#statusMessage').html(voteSubject);
 		$('#voteSent').hide();
 		$('#votingOptions').show();	
 	}
@@ -76,8 +76,7 @@ socket.on('logout', function(data) {
 	}
 });
 
-socket.on('reset', enableVote);
-socket.on('begin', enableVote);
+socket.on('beginVote', enableVote);
 
 $(function() {
     $("#pseudoSet").click(function() {
