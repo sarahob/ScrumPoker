@@ -9,12 +9,13 @@ var setPseudo = function() {
 	var pseudoName = $("#pseudoInput").val();
     if (pseudoName != "") {
     	if (loggedInUsers.indexOf(pseudoName) === -1) {
-    		socket.emit('login', $("#pseudoInput").val());
+    		socket.emit('login', pseudoName);
             $('#pseudoInput').hide();
             $('#pseudoSet').hide(); 
             $('#errorMessage').hide();
             $('#statusMessage').show();
             $('#loginControls').hide();
+            $('#welcome').html('<h2>Welcome ' + pseudoName + '</h2>');
             loggedIn = true;
     	} else {
     		$('#errorMessage').html('That name is already taken, try again');

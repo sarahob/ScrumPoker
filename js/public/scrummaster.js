@@ -12,7 +12,17 @@ var refreshUserList = function() {
 	
 	for (var i = 0; i < loggedInUsers.length; i++) {
 		user = loggedInUsers[i];
-		userListStr += '<div class="card"><p>' + user + (votes[user] ? ' (' + (hideVotes ? 'X' : votes[user]) + ') ' : '') + '</p></div>';
+		userListStr += '<div class="card"><p class="vote">';
+		if (votes[user]) {
+			if (hideVotes) {
+				userListStr += 'X';
+			} else {
+				userListStr += votes[user];
+			}
+		} else {
+			userListStr += '?';
+		}
+		userListStr += '</p><p class="username">' + user + '</p></div>';
 	}
 	userListStr += '<div class="after-card"></div>';
     $("#loggedInUsers").html(userListStr);
@@ -101,6 +111,6 @@ $(function() {
 			hideVotes = false;
 			refreshUserList();	
 		}
-		allVotesIn = true;  // clicking a second time will force reveal...
+		allVotesIn = true;
 	});
 });
