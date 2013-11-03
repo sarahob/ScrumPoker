@@ -1,4 +1,4 @@
-require('cf-autoconfig')
+//require('cf-autoconfig')  //comment in this line to run on CF
 var express = require('express'), 
 	app = express(),
     jade = require('jade'),
