@@ -4,13 +4,13 @@
   height: 100px;
   margin: 5px;
   color: #666;
-  border: 3px solid #ddd;
+  border: 2px solid #ddd;
   font-size: 72px;
   font-weight: bold;
   text-align: center;
   cursor:pointer;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .card:hover {

@@ -1,6 +1,7 @@
 var socket = io.connect(),
     votingOptions = [1,2, 3, 5, 8, 13, 20], 
-    loggedIn = false;
+    loggedIn = false,
+    userName = '';
 
 /**
  * When the user sets their login name.
@@ -9,6 +10,7 @@ var setPseudo = function() {
 	var pseudoName = $("#pseudoInput").val();
     if (pseudoName != "") {
     	if (loggedInUsers.indexOf(pseudoName) === -1) {
+    		userName = pseudoName;
     		socket.emit('login', pseudoName);
             $('#pseudoInput').hide();
             $('#pseudoSet').hide(); 
@@ -18,7 +20,7 @@ var setPseudo = function() {
             $('#welcome').html('<h2>Welcome ' + pseudoName + '</h2>');
             loggedIn = true;
     	} else {
-    		$('#errorMessage').html('That name is already taken, try again');
+    		$('#errorMessage').html('That name is already taken, try again').show();
     	}
     }
 };
@@ -51,7 +53,7 @@ var vote = function(value) {
 var enableVote = function(voteSubject) {
 	if (loggedIn) {
 		renderVotingOptions();
-		$('#statusMessage').html(voteSubject);
+		$('#statusMessage').html('Current vote: ' + voteSubject).show();
 		$('#voteSent').hide();
 		$('#votingOptions').show();	
 	}
@@ -87,4 +89,10 @@ $(function() {
     	
     });
     $('#statusMessage').hide();
+    $('#errorMessage').hide();
+    $('#voteSent').hide();
+    
+    window.onbeforeunload = function() {
+    	socket.emit('logoff', userName);
+    };
 });

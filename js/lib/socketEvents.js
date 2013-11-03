@@ -46,6 +46,20 @@ var socketEvents = function() {
 		        });
 		    },
 		    
+		    'logoff': function(userName) {
+		    	
+		    	socket.get('login', function(error, name) {
+		    		
+		    		if (name === userName) {
+		    			
+		    			socket.disconnect();
+		    			
+		    		}
+		    		
+		    	});
+		    	
+		    },
+		    
 		    /**
 		     * Vote
 		     */
