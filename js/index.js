@@ -25,7 +25,7 @@ app.configure(function() {
  */
 var routes = {
 	'/' : function(req, res) {
-		res.render('home.jade', { users: JSON.stringify(socketEvents.allClients)});
+		res.render('vote.jade', { users: JSON.stringify(socketEvents.allClients)});
 	},
 	'/scrummaster' : function(req, res) {
 	    res.render('scrummaster.jade', { users: JSON.stringify(socketEvents.allClients)});
