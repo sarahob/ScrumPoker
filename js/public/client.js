@@ -15,12 +15,12 @@ var setPseudo = function() {
             $('#pseudoInput').hide();
             $('#pseudoSet').hide(); 
             $('#errorMessage').hide();
-            $('#statusMessage').show();
+            $('#statusMessage').html('<span class="glyphicon glyphicon-time"></span> &nbsp;Waiting for voting to open.').show();
             $('#loginControls').hide();
             $('#welcome').html('<h2>Welcome ' + pseudoName + '</h2>');
             loggedIn = true;
     	} else {
-    		$('#errorMessage').html('That name is already taken, try again').show();
+    		$('#errorMessage').html('<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;That name is already taken, try again').show();
     	}
     }
 };
@@ -43,7 +43,7 @@ var renderVotingOptions = function() {
  */
 var vote = function(value) {
 	socket.emit('vote', value);
-	$('#voteSent').html('Your vote has been cast').show();
+	$('#voteSent').html('<span class="glyphicon glyphicon-ok-circle"></span>&nbsp;Your vote has been cast').show();
 	$('#votingOptions').hide();
 };
 
@@ -53,7 +53,7 @@ var vote = function(value) {
 var enableVote = function(voteSubject) {
 	if (loggedIn) {
 		renderVotingOptions();
-		$('#statusMessage').html('Current vote: ' + voteSubject).show();
+		$('#statusMessage').html('<span class="glyphicon glyphicon-tag"></span> &nbsp;Current vote: ' + voteSubject).show();
 		$('#voteSent').hide();
 		$('#votingOptions').show();	
 	}

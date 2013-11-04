@@ -107,6 +107,7 @@ $(function() {
 			$('#newVoteModal').modal('hide')
 			clearUserVotes();
 			$('#backlogNumber').val('');
+			$('#reveal').removeAttr('disabled');
 		}
 	});
 	
@@ -117,4 +118,5 @@ $(function() {
 		}
 		allVotesIn = true;
 	});
+	$('#reveal').attr('disabled','disabled');
 });
